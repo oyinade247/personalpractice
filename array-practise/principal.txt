@@ -1,0 +1,855 @@
+import java.util.Scanner;
+
+public class MortgageCalculator {
+
+        public static double calculateMonthlyPayment(double principal, double annualInterestRate, int years) {
+        double monthlyRate = annualInterestRate / 100 / 12;  
+        int numberOfMonths = years * 12;  // total number of payments
+
+       
+        double monthlyPayment = principal *
+                (monthlyRate * Math.pow(1 + monthlyRate, numberOfMonths)) 
+                (Math.pow(1 + monthlyRate, numberOfMonths) - 1);
+
+        return monthlyPayment;
+    }
+
+       public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("🏦 Mortgage Calculator 🏦");
+
+        System.out.print("Enter Principal amount: ");
+        double principal = input.nextDouble();
+
+        System.out.print("Enter Annual Interest Rate (e.g., 5 for 5%): ");
+        double annualInterestRate = input.nextDouble();
+
+        System.out.print("Enter Duration (in years): ");
+        int years = input.nextInt();
+
+        double monthlyPayment = calculateMonthlyPayment(principal, annualInterestRate, years);
+
+        System.out.printf("Your Monthly Payment is: $%.2f\n", monthlyPayment);
+
+
+    }
+}
+def calculate_monthly_payment(principal, annual_interest_rate, years):
+    monthly_rate = annual_interest_rate / 100 / 12
+    number_of_months = years * 12
+
+    monthly_payment = principal * (
+        monthly_rate * (1 + monthly_rate) ** number_of_months
+    ) / ((1 + monthly_rate) ** number_of_months - 1)
+
+    return monthly_payment
+
+
+# Main program
+print("🏦 Mortgage Calculator 🏦")
+
+principal = float(input("Enter Principal amount: "))
+annual_interest_rate = float(input("Enter Annual Interest Rate (e.g., 5 for 5%): "))
+years = int(input("Enter Duration (in years): "))
+
+monthly_payment = calculate_monthly_payment(principal, annual_interest_rate, years)
+
+print(f"Your Monthly Payment is: ${monthly_payment:.2f}")
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class ParkingLot {
+    private int[] slots = new int[20];
+
+    // Display parking status
+    public void display() {
+        System.out.println(Arrays.toString(slots));
+    }
+
+    // Car enters the parking lot
+    public void enter() {
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i] == 0) {
+                slots[i] = 1;
+                System.out.println("Car parked at slot " + (i + 1));
+                return;
+            }
+        }
+        System.out.println("Parking lot full!");
+    }
+
+    // Car leaves the parking lot
+    public void leave(int slotNumber) {
+        if (slotNumber < 1 || slotNumber > 20) {
+            System.out.println("Invalid slot number!");
+            return;
+        }
+        if (slots[slotNumber - 1] == 1) {
+            slots[slotNumber - 1] = 0;
+            System.out.println("Car left slot " + slotNumber);
+        } else {
+            System.out.println("Slot " + slotNumber + " is already empty!");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ParkingLot lot = new ParkingLot();
+        String command;
+
+        System.out.println("Parking lot simulation started.");
+        lot.display();
+
+        while (true) {
+            System.out.println("\nEnter command (enter / leave <slot> / display / exit):");
+            command = sc.nextLine().trim().toLowerCase();
+
+            if (command.equals("exit")) {
+                break;
+            } else if (command.equals("enter")) {
+                lot.enter();
+            } else if (command.startsWith("leave")) {
+                try {
+                    int slot = Integer.parseInt(command.split(" ")[1]);
+                    lot.leave(slot);
+                } catch (Exception e) {
+                    System.out.println("Invalid command. Use leave <slot_number>");
+                }
+            } else if (command.equals("display")) {
+                lot.display();
+            } else {
+                System.out.println("Unknown command!");
+            }
+        }
+
+        sc.close();
+        System.out.println("Simulation ended.");
+    }
+}
+
+
+
+  
+
+
+     System.out.println("Exact match: you win $10,000");
+ 26 else if (guessDigit2 == lotteryDigit1
+ 27 && guessDigit1 == lotteryDigit2)
+ 28        System.out.println("Match all digits: you win $3,000");
+ 29 else if (guessDigit1 == lotteryDigit1
+ 30 || guessDigit1 == lotteryDigit2
+ 31 || guessDigit2 == lotteryDigit1
+ 32 || guessDigit2 == lotteryDigit2)
+ 33        System.out.println("Match one digit: you win $1,000")
+
+
+
+
+import java.util.Scanner;
+
+public class CreditCardValidation {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        // Ask the user to enter a credit card number
+        System.out.print("Enter a credit card number as a long integer: ");
+        long number = input.nextLong();
+
+        // Display whether the number is valid
+        if (isValid(number))
+            System.out.println(number + " is valid.");
+        else
+            System.out.println(number + " is invalid.");
+
+        input.close();
+    }
+
+    /** Return true if the card number is valid */
+    public static boolean isValid(long number) {
+        return (getSize(number) >= 13 && getSize(number) <= 16) &&
+               (prefixMatched(number, 4) ||
+                prefixMatched(number, 5) ||
+                prefixMatched(number, 37) ||
+                prefixMatched(number, 6)) &&
+               ((sumOfDoubleEvenPlace(number) + sumOfOddPlace(number)) % 10 == 0);
+    }
+
+    /** Get the result from Step 2: Double every second digit from right to left */
+    public static int sumOfDoubleEvenPlace(long number) {
+        int sum = 0;
+        String num = number + "";
+
+        for (int i = getSize(number) - 2; i >= 0; i -= 2) {
+            int digit = Integer.parseInt(num.charAt(i) + "");
+            sum += getDigit(digit * 2);
+        }
+        return sum;
+    }
+
+    /** Return this number if it is a single digit, otherwise return sum of the two digits */
+    public static int getDigit(int number) {
+        if (number < 10)
+            return number;
+        else
+            return (number / 10) + (number % 10);
+    }
+
+    /** Return sum of digits in the odd places from right to left in the card number */
+    public static int sumOfOddPlace(long number) {
+        int sum = 0;
+        String num = number + "";
+
+        for (int i = getSize(number) - 1; i >= 0; i -= 2) {
+            int digit = Integer.parseInt(num.charAt(i) + "");
+            sum += digit;
+        }
+        return sum;
+    }
+
+    /** Return true if the digit d is a prefix for number */
+    public static boolean prefixMatched(long number, int d) {
+        return getPrefix(number, getSize(d)) == d;
+    }
+
+    /** Return the number of digits in d */
+    public static int getSize(long d) {
+        String num = d + "";
+        return num.length();
+    }
+
+    /** Return the first k number of digits from number */
+    public static long getPrefix(long number, int k) {
+        String num = number + "";
+        if (num.length() > k)
+            return Long.parseLong(num.substring(0, k));
+        return number;
+    }
+}
+
+public class Fibonacci {
+    public static void main(String[] args) {
+        int n = 10, a = 0, b = 1;
+        System.out.print(a + " " + b + " ");
+        for (int i = 2; i < n; i++) {
+            int c = a + b;
+            System.out.print(c + " ");
+            a = b;
+            b = c;
+        }
+    }
+}
+
+
+import java.util.Scanner;
+
+public class SemicolonStoreArray {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("=== SEMICOLON STORE CHECKOUT ===");
+        System.out.print("Enter number of products: ");
+        int n = input.nextInt();
+        input.nextLine(); // consume newline
+
+        // Step 1: Declare arrays
+        String[] productNames = new String[n];
+        double[] productPrices = new double[n];
+        int[] quantities = new int[n];
+        double[] totals = new double[n];
+
+        // Step 2: Get product details
+        for (int i = 0; i < n; i++) {
+            System.out.println("\nEnter details for product " + (i + 1) + ":");
+            System.out.print("Product name: ");
+            productNames[i] = input.nextLine();
+
+            System.out.print("Product price: ");
+            productPrices[i] = input.nextDouble();
+
+            System.out.print("Quantity purchased: ");
+            quantities[i] = input.nextInt();
+            input.nextLine(); // consume newline
+
+            // compute total for each product
+            totals[i] = productPrices[i] * quantities[i];
+        }
+
+        // Step 3: Display invoice
+        double subTotal = 0;
+        System.out.println("\n=========== CUSTOMER INVOICE ===========");
+        System.out.printf("%-20s %-10s %-10s %-10s%n", "Product", "Qty", "Price", "Total");
+        System.out.println("------------------------------------------");
+
+        for (int i = 0; i < n; i++) {
+            subTotal += totals[i];
+            System.out.printf("%-20s %-10d %-10.2f %-10.2f%n",
+                    productNames[i], quantities[i], productPrices[i], totals[i]);
+        }
+
+        // Step 4: Compute totals
+        double discount = 0;
+        if (subTotal >= 50000) {
+            discount = subTotal * 0.10; // 10% discount
+        }
+        double vat = subTotal * 0.075;
+        double grandTotal = subTotal - discount + vat;
+
+        // Step 5: Print summary
+        System.out.println("------------------------------------------");
+        System.out.printf("%-20s %-10s %-10s %-10.2f%n", "", "", "Subtotal:", subTotal);
+        System.out.printf("%-20s %-10s %-10s %-10.2f%n", "", "", "Discount:", discount);
+        System.out.printf("%-20s %-10s %-10s %-10.2f%n", "", "", "VAT (7.5%):", vat);
+        System.out.println("------------------------------------------");
+        System.out.printf("%-20s %-10s %-10s %-10.2f%n", "", "", "TOTAL:", grandTotal);
+        System.out.println("==========================================");
+        System.out.println("Thank you for shopping at Semicolon Store!");
+    }
+}
+
+
+
+
+
+
+# store_functions.py
+
+def calculate_invoice(customer):
+    """Calculate totals, discount, VAT, and grand total for one customer."""
+    products = customer["products"]
+    prices = customer["prices"]
+    quantities = customer["quantities"]
+
+    totals = []
+    subtotal = 0
+
+    # Calculate totals for each product
+    for i in range(len(products)):
+        total = prices[i] * quantities[i]
+        totals.append(total)
+        subtotal += total
+
+    discount = subtotal * 0.10 if subtotal >= 50000 else 0
+    vat = subtotal * 0.075
+    grand_total = subtotal - discount + vat
+
+    return totals, subtotal, discount, vat, grand_total
+
+
+def display_invoice(customer):
+    """Display invoice for one customer."""
+    totals, subtotal, discount, vat, grand_total = calculate_invoice(customer)
+
+    print(f"\nInvoice for {customer['name']}")
+    print(f"{'Product':<20}{'Qty':<10}{'Price':<10}{'Total':<10}")
+    print("-" * 50)
+
+    for i in range(len(customer["products"])):
+        print(f"{customer['products'][i]:<20}{customer['quantities'][i]:<10}"
+              f"{customer['prices'][i]:<10.2f}{totals[i]:<10.2f}")
+
+    print("-" * 50)
+    print(f"{'Subtotal:':<40}{subtotal:<10.2f}")
+    print(f"{'Discount:':<40}{discount:<10.2f}")
+    print(f"{'VAT (7.5%):':<40}{vat:<10.2f}")
+    print(f"{'TOTAL:':<40}{grand_total:<10.2f}")
+    print("==========================================")
+
+
+
+from store_functions import calculate_invoice, display_invoice
+
+all_customers = []  # This will store all customers' data
+
+def enter_customer():
+    """Enter one customer's data and store in all_customers."""
+    name = input("Enter customer name: ")
+    products = []
+    prices = []
+    quantities = []
+
+    while True:
+        product = input("Enter product name (or 'done' to finish): ")
+        if product.lower() == 'done':
+            break
+        price = float(input("Enter price: "))
+        qty = int(input("Enter quantity: "))
+
+        products.append(product)
+        prices.append(price)
+        quantities.append(qty)
+
+    customer = {
+        "name": name,
+        "products": products,
+        "prices": prices,
+        "quantities": quantities
+    }
+
+    all_customers.append(customer)
+    display_invoice(customer)  # Print receipt immediately
+
+
+def print_all_receipts():
+    """Print receipts of all customers entered so far."""
+    if not all_customers:
+        print("No customers yet.")
+        return
+
+    print("\n=== ALL CUSTOMER RECEIPTS ===")
+    for customer in all_customers:
+        display_invoice(customer)
+
+
+# Menu loop
+while True:
+    print("\n--- SEMICOLON STORE MENU ---")
+    print("1 => Enter customer details")
+    print("2 => Print all customer receipts")
+    print("3 => Exit")
+    choice = input("Enter choice: ")
+
+    if choice == '1':
+        enter_customer()
+    elif choice == '2':
+        print_all_receipts()
+    elif choice == '3':
+        print("Closing store. Goodbye!")
+        break
+    else:
+        print("Invalid choice, try again.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def park_car(lot):
+    """Park a car in the first available slot. Return slot number or -1 if full."""
+    for i in range(len(lot)):
+        if lot[i] == 0:
+            lot[i] = 1
+            return i + 1
+    return -1  # Parking lot full
+
+def leave_car(lot, slot_number):
+    """Remove a car from a specified slot. Return True if successful, False otherwise."""
+    if 1 <= slot_number <= len(lot):
+        if lot[slot_number - 1] == 1:
+            lot[slot_number - 1] = 0
+            return True
+        else:
+            return False  # Slot already empty
+    else:
+        return False  # Invalid slot
+
+def get_parking_status(lot):
+    """Return a list of slot statuses ('Empty' or 'Occupied')."""
+    return ["Empty" if slot == 0 else "Occupied" for slot in lot]
+
+
+
+
+
+
+def can_reach_pump(distance, mpg, gallons_left):
+    # Calculate maximum distance the car can travel with remaining fuel
+    max_distance = mpg * gallons_left
+    # Check if max distance is enough
+    return max_distance >= distance
+
+# Example usage:
+distance_to_pump = 50
+car_mpg = 25
+fuel_left = 2
+
+print(can_reach_pump(distance_to_pump, car_mpg, fuel_left))
+
+
+
+
+# Step 1: Ask the user to enter a credit card number
+number = input("Enter credit card number: ")  # Input is read as string
+
+# Convert the input string to a list of integers (digits)
+digits = [int(d) for d in number]  # e.g., '4388576018410707' → [4,3,8,8,...]
+
+# Function to get the number of digits
+def get_size(num):
+    return len(str(num))  # Simply count digits
+
+# Function to get the first k digits of a number
+def get_prefix(num, k):
+    num_str = str(num)
+    if len(num_str) < k:
+        return num
+    else:
+        return int(num_str[:k])  # Slice first k characters
+
+# Function to check if prefix matches
+def prefix_matched(num, d):
+    return get_prefix(num, len(str(d))) == d
+
+# Function to handle doubling a digit
+def get_digit(number):
+    if number < 10:
+        return number
+    else:
+        return number // 10 + number % 10  # Sum of two digits
+
+# Step 2: Sum of double even-place digits from right
+def sum_of_double_even_place(digits):
+    sum_even = 0
+    # Start from second-to-last digit and step backwards by 2
+    for i in range(len(digits)-2, -1, -2):
+        sum_even += get_digit(digits[i]*2)
+    return sum_even
+
+# Step 3: Sum of odd-place digits from right
+def sum_of_odd_place(digits):
+    sum_odd = 0
+    # Start from last digit and step backwards by 2
+    for i in range(len(digits)-1, -1, -2):
+        sum_odd += digits[i]
+    return sum_odd
+
+# Function to check validity using all rules
+def is_valid(number):
+    size = get_size(number)
+    # Convert to digits list for Luhn algorithm
+    digits = [int(d) for d in str(number)]
+    
+    # Check length and prefix rules
+    if size >= 13 and size <= 16 and (
+        prefix_matched(number, 4) or
+        prefix_matched(number, 5) or
+        prefix_matched(number, 6) or
+        prefix_matched(number, 37)
+    ):
+        total = sum_of_double_even_place(digits) + sum_of_odd_place(digits)
+        return total % 10 == 0  # Valid if divisible by 10
+    else:
+        return False
+
+# Main logic
+if is_valid(number):
+    print(number, "is a valid credit card number.")
+else:
+    print(number, "is an invalid credit card number.")
+
+
+
+
+public class CheckDuplicate {
+
+    public static void main(String[] args) {
+        int[] numbers = {3, 5, 2, 8, 3, 9};
+        System.out.println(hasDuplicate(numbers));  // should print true
+    }
+
+    public static boolean hasDuplicate(int[] numbers) {
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = i + 1; j < numbers.length; j++) {
+                if (numbers[i] == numbers[j]) {
+                    return true;  // found a duplicate
+                }
+            }
+        }
+        return false;  // no duplicates found
+    }
+}
+
+
+
+
+public class EmirpShort {
+    public static void main(String[] args) {
+        for (int num = 10; num <= 1000; num++) {
+            if (isPrime(num)) {
+                int rev = reverse(num);
+                if (rev != num && isPrime(rev)) {
+                    System.out.print(num + " ");
+                }
+            }
+        }
+    }
+
+    public static boolean isPrime(int n) {
+        if (n < 2) return false;
+        for (int i = 2; i <= n / 2; i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+
+    public static int reverse(int n) {
+        int rev = 0;
+        while (n > 0) {
+            rev = rev * 10 + n % 10;
+            n /= 10;
+        }
+        return rev;
+    }
+}
+
+
+
+def is_anagram(word1, word2):
+    # Make both lowercase and remove spaces
+    word1 = word1.replace(" ", "").lower()
+    word2 = word2.replace(" ", "").lower()
+
+    # Quick check — if lengths differ, they can’t be anagrams
+    if len(word1) != len(word2):
+        return False
+
+    # Convert strings into lists of characters
+    list1 = list(word1)
+    list2 = list(word2)
+
+    # Sort both lists
+    list1.sort()
+    list2.sort()
+
+    # Compare the sorted lists
+    return list1 == list2
+
+
+# Example test
+print(is_anagram("listen", "silent"))   # True
+print(is_anagram("python", "typhon"))   # True
+print(is_anagram("cat", "cut"))         # False
+
+
+def is_anagram(word1, word2):
+    # clean words manually (ignore spaces and uppercase)
+    w1 = ""
+    w2 = ""
+    for ch in word1:
+        if ch != " ":
+            w1 += ch.lower()  # or manually convert
+    for ch in word2:
+        if ch != " ":
+            w2 += ch.lower()
+    
+    # if lengths differ
+    if len(w1) != len(w2):
+        return False
+    
+    # make a frequency table manually
+    freq1 = {}
+    freq2 = {}
+    for ch in w1:
+        freq1[ch] = freq1.get(ch, 0) + 1
+    for ch in w2:
+        freq2[ch] = freq2.get(ch, 0) + 1
+    
+    # compare dictionaries
+    return freq1 == freq2
+
+
+
+
+
+public class CapitalizeFirst {
+
+    public static void main(String[] args) {
+        String[] words = {"hello", "world", "java", "is", "fun"};
+        String[] capitalized = capitalizeFirstLetter(words);
+
+        for (String word : capitalized) {
+            System.out.println(word);
+        }
+    }
+
+    public static String[] capitalizeFirstLetter(String[] words) {
+        String[] result = new String[words.length];
+
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() == 0) {
+                result[i] = words[i]; // empty string stays empty
+            } else {
+                // Use substring and toUpperCase
+                result[i] = words[i].substring(0, 1).toUpperCase() + words[i].substring(1);
+            }
+        }
+
+        return result;
+    }
+}
+
+
+
+
+
+import java.util.Arrays;
+
+public class SortByLength {
+
+    public static void main(String[] args) {
+        String[] words = {"apple", "dog", "banana", "cat", "elephant"};
+        String[] sorted = sortByLength(words);
+
+        System.out.println(Arrays.toString(sorted));
+    }
+
+    public static String[] sortByLength(String[] words) {
+        String[] result = Arrays.copyOf(words, words.length); // copy original array
+
+        // Simple Bubble Sort based on length
+        for (int i = 0; i < result.length - 1; i++) {
+            for (int j = 0; j < result.length - 1 - i; j++) {
+                if (result[j].length() > result[j + 1].length()) {
+                    // Swap words
+                    String temp = result[j];
+                    result[j] = result[j + 1];
+                    result[j + 1] = temp;
+                }
+            }
+        }
+
+        return result;
+    }
+}
+
+
+def sort_by_length(words):
+    # Manual copy using a for loop
+    result = []
+    for word in words:
+        result.append(word)
+    
+    # Bubble sort based on length
+    for i in range(len(result) - 1):
+        for j in range(len(result) - 1 - i):
+            if len(result[j]) > len(result[j + 1]):
+                # Swap
+                result[j], result[j + 1] = result[j + 1], result[j]
+    
+    return result
+
+# Example usage
+words = ["apple", "dog", "banana", "cat", "elephant"]
+sorted_words = sort_by_length(words)
+print(sorted_words)
+
+
+
+
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+# Sum all elements
+total = 0
+for row in matrix:
+    for value in row:
+        total += value
+
+print("Sum of all elements:", total)
+
+
+
+import datetime
+
+# Dictionary to store movies and their ratings
+movies = {}
+
+def add_movie():
+    name = input("Enter the movie name: ").strip()
+    if name in movies:
+        print(f"Movie '{name}' already exists!")
+    else:
+        movies[name] = {"ratings": [], "added_on": datetime.datetime.now()}
+        print(f"Movie '{name}' added on {movies[name]['added_on'].strftime('%Y-%m-%d %H:%M:%S')}!")
+
+def rate_movie():
+    name = input("Enter the movie name: ").strip()
+    if name not in movies:
+        print(f"Movie '{name}' does not exist! Add it first.")
+        return
+    try:
+        rating = float(input("Enter your rating (1-5): "))
+        if rating < 1 or rating > 5:
+            print("Rating must be between 1 and 5.")
+            return
+    except ValueError:
+        print("Invalid rating. Enter a number between 1 and 5.")
+        return
+    movies[name]["ratings"].append(rating)
+    print(f"Rating {rating} added for '{name}'!")
+
+def view_average_rating():
+    if not movies:
+        print("No movies available.")
+        return
+    print("Average Ratings:")
+    for name, info in movies.items():
+        if info["ratings"]:
+            avg = sum(info["ratings"]) / len(info["ratings"])
+            print(f"- {name}: {avg:.2f}")
+        else:
+            print(f"- {name}: No ratings yet")
+
+def main():
+    while True:
+        print("\n1. Add a Movie")
+        print("2. Rate a Movie")
+        print("3. View Average Ratings")
+        print("4. Exit")
+        choice = input("Enter your choice: ").strip()
+
+        if choice == "1":
+            add_movie()
+        elif choice == "2":
+            rate_movie()
+        elif choice == "3":
+            view_average_rating()
+        elif choice == "4":
+            print("Exiting the application. Goodbye!")
+            break
+        else:
+            print("Invalid choice! Please enter 1-4.")
+
+# Run the app
+main()
+
+
+
+
+
+
+
+
+
+
+
+
